@@ -166,6 +166,31 @@ export default function Profile() {
           </Button>
         </motion.div>
 
+        {/* FAQ */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="p-5 rounded-2xl bg-card border border-border mb-6"
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <HelpCircle className="w-5 h-5 text-primary" />
+            <h3 className="font-semibold text-foreground">Ofte stillede spørgsmål</h3>
+          </div>
+          <Accordion type="single" collapsible className="w-full">
+            {faqItems.map((item, i) => (
+              <AccordionItem key={i} value={`faq-${i}`} className="border-border">
+                <AccordionTrigger className="text-left text-sm text-foreground hover:no-underline">
+                  {item.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-sm text-muted-foreground">
+                  {item.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </motion.div>
+
         {/* Logout */}
         <Button
           variant="ghost"
