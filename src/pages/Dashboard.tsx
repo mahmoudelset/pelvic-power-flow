@@ -34,7 +34,7 @@ export default function Dashboard() {
   }, [user, filteredExercises]);
 
   const completedCount = user?.completedExercises.length || 0;
-  const totalExercises = exercises.length;
+  const totalExercises = filteredExercises.length;
 
   const levels = ['beginner', 'intermediate', 'advanced'] as const;
 
