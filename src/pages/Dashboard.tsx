@@ -15,7 +15,8 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const [activeExercise, setActiveExercise] = useState<Exercise | null>(null);
 
-  const todayQuote = useMemo(() => quotes[new Date().getDay() % quotes.length], []);
+  const activeQuotes = user?.gender === 'male' ? maleQuotes : quotes;
+  const todayQuote = useMemo(() => activeQuotes[new Date().getDay() % activeQuotes.length], [activeQuotes]);
 
   // Recommend an exercise the user hasn't completed yet
   const recommended = useMemo(() => {
