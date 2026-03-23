@@ -101,7 +101,7 @@ export default function Dashboard() {
           <div className="space-y-2">
             {levels.map(level => {
               const lvl = levelLabels[level];
-              const levelExercises = exercises.filter(e => e.level === level);
+              const levelExercises = filteredExercises.filter(e => e.level === level);
               const completed = levelExercises.filter(e => user.completedExercises.includes(e.id)).length;
               const pct = (completed / levelExercises.length) * 100;
 
