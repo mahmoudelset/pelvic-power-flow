@@ -1,5 +1,6 @@
 export type Level = 'beginner' | 'intermediate' | 'advanced';
-export type Goal = 'postpartum' | 'pregnant' | 'general' | 'sexual-health';
+export type Gender = 'male' | 'female';
+export type Goal = 'postpartum' | 'pregnant' | 'general' | 'sexual-health' | 'prostate';
 
 export interface Exercise {
   id: string;
@@ -14,6 +15,7 @@ export interface Exercise {
 export interface UserProfile {
   name: string;
   email: string;
+  gender: Gender;
   goal: Goal;
   currentLevel: Level;
   completedExercises: string[];

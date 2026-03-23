@@ -7,7 +7,7 @@ import { BottomNav } from '@/components/BottomNav';
 import { VideoPlayer } from '@/components/VideoPlayer';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/AuthContext';
-import { exercises, quotes, levelLabels } from '@/data/exercises';
+import { exercises, quotes, maleQuotes, levelLabels } from '@/data/exercises';
 import { Exercise } from '@/types';
 
 export default function Dashboard() {
@@ -15,18 +15,26 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const [activeExercise, setActiveExercise] = useState<Exercise | null>(null);
 
-  const todayQuote = useMemo(() => quotes[new Date().getDay() % quotes.length], []);
+  const activeQuotes = user?.gender === 'male' ? maleQuotes : quotes;
+  const todayQuote = useMemo(() => activeQuotes[new Date().getDay() % activeQuotes.length], [activeQuotes]);
 
   // Recommend an exercise the user hasn't completed yet
+  const filteredExercises = useMemo(() => {
+    if (user?.gender === 'male') {
+      return exercises.filter(e => !e.goals.every(g => g === 'postpartum' || g === 'pregnant'));
+    }
+    return exercises;
+  }, [user?.gender]);
+
   const recommended = useMemo(() => {
     const level = user?.currentLevel || 'beginner';
-    const levelExercises = exercises.filter(e => e.level === level);
+    const levelExercises = filteredExercises.filter(e => e.level === level);
     const uncompleted = levelExercises.filter(e => !user?.completedExercises.includes(e.id));
     return uncompleted.length > 0 ? uncompleted[0] : levelExercises[0];
-  }, [user]);
+  }, [user, filteredExercises]);
 
   const completedCount = user?.completedExercises.length || 0;
-  const totalExercises = exercises.length;
+  const totalExercises = filteredExercises.length;
 
   const levels = ['beginner', 'intermediate', 'advanced'] as const;
 
@@ -93,7 +101,7 @@ export default function Dashboard() {
           <div className="space-y-2">
             {levels.map(level => {
               const lvl = levelLabels[level];
-              const levelExercises = exercises.filter(e => e.level === level);
+              const levelExercises = filteredExercises.filter(e => e.level === level);
               const completed = levelExercises.filter(e => user.completedExercises.includes(e.id)).length;
               const pct = (completed / levelExercises.length) * 100;
 
