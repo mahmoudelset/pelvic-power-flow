@@ -15,6 +15,7 @@ export interface Exercise {
 export interface UserProfile {
   name: string;
   email: string;
+  gender: Gender;
   goal: Goal;
   currentLevel: Level;
   completedExercises: string[];
