@@ -14,13 +14,14 @@ import { toast } from 'sonner';
 export default function Profile() {
   const { user, updateProfile, logout } = useAuth();
   const navigate = useNavigate();
+  const [times, setTimes] = useState<[string, string, string]>(
+    user?.reminderTimes || ['08:00', '13:00', '20:00']
+  );
 
   if (!user) {
     navigate('/', { replace: true });
     return null;
   }
-
-  const [times, setTimes] = useState(user.reminderTimes);
 
   const handleSaveTimes = () => {
     updateProfile({ reminderTimes: times });
