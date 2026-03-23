@@ -19,12 +19,19 @@ export default function Dashboard() {
   const todayQuote = useMemo(() => activeQuotes[new Date().getDay() % activeQuotes.length], [activeQuotes]);
 
   // Recommend an exercise the user hasn't completed yet
+  const filteredExercises = useMemo(() => {
+    if (user?.gender === 'male') {
+      return exercises.filter(e => !e.goals.every(g => g === 'postpartum' || g === 'pregnant'));
+    }
+    return exercises;
+  }, [user?.gender]);
+
   const recommended = useMemo(() => {
     const level = user?.currentLevel || 'beginner';
-    const levelExercises = exercises.filter(e => e.level === level);
+    const levelExercises = filteredExercises.filter(e => e.level === level);
     const uncompleted = levelExercises.filter(e => !user?.completedExercises.includes(e.id));
     return uncompleted.length > 0 ? uncompleted[0] : levelExercises[0];
-  }, [user]);
+  }, [user, filteredExercises]);
 
   const completedCount = user?.completedExercises.length || 0;
   const totalExercises = exercises.length;
