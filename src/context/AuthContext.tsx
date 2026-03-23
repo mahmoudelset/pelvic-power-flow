@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { UserProfile, Goal } from '@/types';
+import { UserProfile, Goal, Gender } from '@/types';
 
 const DEFAULT_PROFILE: UserProfile = {
   name: '',
   email: '',
+  gender: 'female',
   goal: 'general',
   currentLevel: 'beginner',
   completedExercises: [],
@@ -16,7 +17,7 @@ interface AuthContextType {
   user: UserProfile | null;
   isLoggedIn: boolean;
   login: (email: string, password: string) => void;
-  signup: (name: string, email: string, password: string, goal: Goal) => void;
+  signup: (name: string, email: string, password: string, gender: Gender, goal: Goal) => void;
   logout: () => void;
   updateProfile: (updates: Partial<UserProfile>) => void;
   completeExercise: (exerciseId: string) => void;
@@ -39,6 +40,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [user]);
 
+  // Apply gender-based theme
+  useEffect(() => {
+    if (user?.gender === 'male') {
+      document.documentElement.classList.add('theme-male');
+    } else {
+      document.documentElement.classList.remove('theme-male');
+    }
+  }, [user?.gender]);
+
   const login = (email: string, _password: string) => {
     const saved = localStorage.getItem('pelvic-power-user');
     if (saved) {
@@ -48,11 +58,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const signup = (name: string, email: string, _password: string, goal: Goal) => {
-    setUser({ ...DEFAULT_PROFILE, name, email, goal, joinedAt: new Date().toISOString() });
+  const signup = (name: string, email: string, _password: string, gender: Gender, goal: Goal) => {
+    setUser({ ...DEFAULT_PROFILE, name, email, gender, goal, joinedAt: new Date().toISOString() });
   };
 
-  const logout = () => setUser(null);
+  const logout = () => {
+    document.documentElement.classList.remove('theme-male');
+    setUser(null);
+  };
 
   const updateProfile = (updates: Partial<UserProfile>) => {
     setUser(prev => prev ? { ...prev, ...updates } : null);
