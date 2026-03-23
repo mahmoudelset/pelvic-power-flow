@@ -8,8 +8,52 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/context/AuthContext';
 import { goalLabels } from '@/data/exercises';
-import { LogOut, Crown, Clock } from 'lucide-react';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { LogOut, Crown, Clock, HelpCircle } from 'lucide-react';
 import { toast } from 'sonner';
+
+const faqItems = [
+  {
+    q: 'Hvad er bækkenbunden, og hvorfor er den vigtig?',
+    a: 'Bækkenbunden er en gruppe muskler i bunden af bækkenet, der støtter blæren, tarmen og livmoderen. En stærk bækkenbund forebygger inkontinens, forbedrer seksuel funktion og giver stabilitet i hele kroppen.',
+  },
+  {
+    q: 'Hvordan udfører jeg en korrekt kegel-øvelse?',
+    a: 'Spænd musklerne omkring skeden og endetarmen, som om du prøver at holde luft og urin tilbage. Hold spændingen i nogle sekunder, og slap så helt af. Undgå at spænde mave, lår eller baller.',
+  },
+  {
+    q: 'Hvor ofte bør jeg træne min bækkenbund?',
+    a: 'Ideelt set 3 gange dagligt i ca. 1 minut – det er derfor appen minder dig morgen, middag og aften. Konsistens er vigtigere end intensitet.',
+  },
+  {
+    q: 'Kan jeg træne bækkenbunden under graviditet?',
+    a: 'Ja! Bækkenbundstræning under graviditet kan gøre fødslen lettere og reducere risikoen for inkontinens efter fødslen. Tal altid med din jordemoder eller fysioterapeut først.',
+  },
+  {
+    q: 'Hvornår kan jeg starte træning efter fødslen?',
+    a: 'Blide bækkenbundsøvelser kan typisk påbegyndes kort efter fødslen (ofte inden for de første dage), men start med begynderniveauet og lyt til din krop. Konsulter din fysioterapeut ved usikkerhed.',
+  },
+  {
+    q: 'Hvad er tegn på en svag bækkenbund?',
+    a: 'Almindelige tegn inkluderer urinlækage ved hoste, nys eller motion, hyppig vandladningstrang, tyngdefornemmelse i bækkenet, og nedsat følsomhed under sex.',
+  },
+  {
+    q: 'Kan mænd også have gavn af bækkenbundstræning?',
+    a: 'Absolut. Mænd har også en bækkenbund, og træning kan hjælpe med blærekontrol, seksuel funktion og core-stabilitet – især efter prostataoperationer.',
+  },
+  {
+    q: 'Hvad er forskellen på de tre niveauer i appen?',
+    a: 'Begynder fokuserer på grundlæggende aktivering og bevidsthed. Middel introducerer funktionelle øvelser som bro og squat. Trænet niveau har intense holds og dynamiske øvelser for maksimal styrke.',
+  },
+  {
+    q: 'Hvor lang tid tager det at mærke resultater?',
+    a: 'De fleste mærker forbedring efter 3-6 ugers daglig træning. Nogle oplever bedre blærekontrol allerede efter få uger. Vedholdenhed er nøglen!',
+  },
+  {
+    q: 'Hvem er Heidi Barlow?',
+    a: 'Heidi Barlow er en australsk fysioterapeut med speciale i kvinders bækkensundhed. Hun har en Master i Fysioterapi fra University of Sydney og er kendt for sin "Kegel Club" på sociale medier, hvor hun dagligt guider millioner af kvinder i bækkenbundstræning.',
+  },
+];
 
 export default function Profile() {
   const { user, updateProfile, logout } = useAuth();
