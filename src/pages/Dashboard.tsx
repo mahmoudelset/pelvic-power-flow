@@ -7,7 +7,7 @@ import { BottomNav } from '@/components/BottomNav';
 import { VideoPlayer } from '@/components/VideoPlayer';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/AuthContext';
-import { exercises, quotes, levelLabels } from '@/data/exercises';
+import { exercises, quotes, maleQuotes, levelLabels } from '@/data/exercises';
 import { Exercise } from '@/types';
 
 export default function Dashboard() {
