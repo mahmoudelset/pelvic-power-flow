@@ -20,7 +20,7 @@ export function Logo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
           className={size === 'lg' ? 'w-12 h-12' : size === 'md' ? 'w-9 h-9' : 'w-6 h-6'}
           fill="none"
         >
-          <circle cx="20" cy="20" r="18" className="stroke-primary" strokeWidth="2" className2="fill-secondary" fill="hsl(var(--secondary))" fillOpacity="0.3" />
+          <circle cx="20" cy="20" r="18" stroke="hsl(var(--primary))" strokeWidth="2" fill="hsl(var(--secondary))" fillOpacity="0.3" />
           <path
             d="M20 8 C14 14, 10 20, 14 28 C16 32, 20 34, 20 34 C20 34, 24 32, 26 28 C30 20, 26 14, 20 8Z"
             fill="hsl(var(--primary))"
