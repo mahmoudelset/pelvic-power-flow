@@ -49,6 +49,11 @@ export default function Signup() {
   const handleGenderSelect = (g: Gender) => {
     setGender(g);
     setSelectedGoal('general');
+    if (g === 'male') {
+      document.documentElement.classList.add('theme-male');
+    } else {
+      document.documentElement.classList.remove('theme-male');
+    }
     setStep(3);
   };
 
